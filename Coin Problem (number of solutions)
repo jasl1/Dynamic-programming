@@ -1,0 +1,24 @@
+def coin_change(coins, x):
+    # Create a table to store the number of ways to make each sum
+    dp = [0] * (x + 1)
+    
+    # Base case: There is one way to make a sum of 0 (by not using any coins)
+    dp[0] = 1
+    
+    # Iterate over each sum from 1 to x
+    for target in range(1, x + 1):
+        # Iterate over each coin value
+        for coin in coins:
+            # If the coin value is less than or equal to the current sum
+            if coin <= target:
+                # Add the number of ways to make the remaining sum (target - coin)
+                dp[target] += dp[target - coin]
+    
+    # Return the number of ways to make the sum x
+    return dp[x]
+
+# Example usage
+coins = [1, 3, 4]
+x = 5
+total_ways = coin_change(coins, x)
+print(f"Total number of ways to make {x} using coins {coins}: {total_ways}")
